@@ -1,0 +1,83 @@
+* { box-sizing: border-box;}
+
+body {
+    font-family: Roboto, Helvetica, 'Open Sans', sans-serif;
+    background-color: grey;
+}
+
+button {
+    padding: 20px 40px;
+    text-align: center;
+    font-size: 24px;
+    margin: 15px;
+    border-radius: 8px;
+}
+
+.playerDiv,
+.computerDiv {
+    display: inline;
+}
+
+.container {
+    padding: 8px;
+    max-width: 720px;
+}
+
+.choose {
+    font-weight: bolder;
+    font-size: 48px;
+}
+
+.choices {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.border {
+    border: solid 4px black;
+}
+
+.score {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bolder;
+    padding: 15px;
+    margin: 20px 0px;
+}
+
+.pScore,
+.cScore {
+    display: flex;
+    flex-direction: column;
+}
+
+.pScore {
+    color: green;
+}
+
+.cScore {
+    color: rgb(128, 10, 10);
+}
+
+.results {
+    font-weight: bolder;
+    font-size: 24px;
+}
+
+.winner {
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+.playerSpan {
+    background-color: green;
+    text-decoration: underline;
+}
+
+.computerSpan {
+    background-color: rgb(128, 10, 10);
+    text-decoration: underline;
+}

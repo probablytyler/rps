@@ -1,25 +1,11 @@
-const choices = ["rock", "paper", "scissors"];
+const options = ["rock", "paper", "scissors"];
 let outcome = null
 let playerScore = 0
 let computerScore = 0
 
 function getComputerChoice() {
     const random = Math.floor(Math.random() * 3);
-    return choices[random];
-}
-
-function getPlayerChoice() {
-    choice = prompt("Rock, Paper, or Scissors?");
-    if (choice === null) {
-        return playerSelection = null;
-    } else {
-        choice = choice.toLowerCase();
-        if (!(choice === "rock" || choice === "paper" || choice === "scissors")) {
-            alert("Incorrect, try again.");
-            getPlayerChoice();
-        }
-    }
-    return choice;
+    return options[random];
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -40,58 +26,80 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-function game() {
-    playerScore = 0;
-    computerScore = 0;
-    let i = 0
-    while (i < 5) {
-        const computerSelection = getComputerChoice()
-        const playerSelection = getPlayerChoice()
-        if (playerSelection === null) {
-            alert("Game cancelled by Player.");
-            return;
-        } else {
-            console.clear();
-            playRound(playerSelection, computerSelection);
-            outcomeCheck(playerSelection, computerSelection, outcome);
-            scoreCheck();
-        }
+function game(e) {
+    const computerSelection = getComputerChoice();
+    const playerSelection = e.target.className;
+    if (playerSelection === null) {
+        alert("Game cancelled by Player.");
+        return;
+    } else {
+        playRound(playerSelection, computerSelection);
+        outcomeCheck(playerSelection, computerSelection, outcome);
+        scoreCheck();
     }
 }
 
 function outcomeCheck(playerSelection, computerSelection, outcome) {
-    console.log("Player chose " + playerSelection);
-    console.log("Computer chose " + computerSelection);
-    console.log("")
-    console.log(outcome);
-    console.log("")
-    console.log("Player score is " + playerScore);
-    console.log("Computer score is " + computerScore);
+    const outcomeDiv = document.querySelector('.outcomeDiv');
+    const playerDiv = document.querySelector('.playerDiv');
+    const playerSpan = document.querySelector('.playerSpan');
+    const computerDiv = document.querySelector('.computerDiv');
+    const computerSpan = document.querySelector('.computerSpan');
+    const results = document.querySelector('.results');
+    outcomeDiv.textContent = outcome;
+    playerDiv.textContent = "Player chose ";
+    playerSpan.textContent = playerSelection;
+    computerDiv.textContent = "Computer chose ";
+    computerSpan.textContent = computerSelection;
 }
 
 
 function scoreCheck() {
-    if (playerScore >= 3) {
-        alert("Player wins the game! Final score " + playerScore + " - " + computerScore);
-        playAgain();
-    } else if (computerScore >=3) {
-        alert("Computer wins the game! Final score " + computerScore + " - " + playerScore);
-        playAgain();
+    cs.textContent = computerScore;
+    ps.textContent = playerScore;
+    if (playerScore >= 5) {
+        showWinner("player");
+    } else if (computerScore >=5) {
+        showWinner("computer");
     } else if (playerScore > computerScore) {
-        console.log("Player is winning!");
+        winner.textContent = "Player is winning!";
         return;
     } else if (playerScore < computerScore) {
-        console.log("Computer is winning!");
+        winner.textContent = "Computer is winning!";
         return;
     } else {
-        console.log("Player and Computer are tied!");
+        winner.textContent = "Player and Computer are tied!";
         return;
     }
 }
 
-function playAgain() {
-    alert("Play again");
-    game();
+function showWinner(wins) {
+    btns.forEach((button) => button.remove());
+    const endGame = document.createElement('p');
+    endGame.setAttribute('style', 'font-size: 48px; text-align: center; font-weight: bolder;');
+    if (wins === "player") {
+        endGame.textContent = "The player has won, humanity is saved!";
+        endGame.style.color = 'green';
+    } else if (wins === "computer") {
+        endGame.textContent = "The computer has won, humanity has been enslaved :(";
+        endGame.style.color = 'rgb(128, 10, 10)';
+    } else {
+        endGame.textContent = "oops";
+    }
+    choices.appendChild(endGame);
+    const playAgain = document.createElement('button');
+    winner.textContent = "Game Over"
+    playAgain.textContent = "Play Again";
+    winner.appendChild(playAgain);
+    playAgain.addEventListener('click', () => location.reload());
 }
 
-game();
+const btns = document.querySelectorAll('div.choices > button');
+const winner = document.querySelector('.winner');
+const choices = document.querySelector('.choices');
+const cs = document.querySelector('.cs');
+const ps = document.querySelector('.ps');
+
+btns.forEach((button) => {
+    button.addEventListener('click', game);
+})
